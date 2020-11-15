@@ -226,7 +226,7 @@ steps:
       - yarn ssr
 
   - name: cypress
-    image: cypress/browsers:chrome69
+    image: cypress/browsers:chrome67
     shm_size: 100000000  # 100MB
     when:
       event: [push]
@@ -352,4 +352,4 @@ image_pull_secrets:
 
 ---
 kind: signature
-hmac: 325ce52b5d96af8f15d933a58ed4423d4459f074ab494605b828aaf3cfe7489d
+hmac: 6914cc6e17cd4a96f0cb4937faca61f54fbf89d095b0fdf63ce9b464e36c60ae
