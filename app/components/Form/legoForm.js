@@ -12,7 +12,7 @@ type Props = {
    * and not if it is passed into 'handleSubmit()
    *
    * This will add a "generic" error message to the "_error" value that can
-   * be ectracted from the form props as "props.error"
+   * be extracted from the form props as "props.error"
    */
   enableSubmissionError?: boolean,
   /* Move the screen to the first error in the list on SubmissionError */

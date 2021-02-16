@@ -164,3 +164,26 @@ export function leaveInterestGroup(
     });
   };
 }
+
+type InterestGroupNewForm = {
+  group_name: String,
+  description: String,
+  captchaResponse: String
+}
+
+export function requestNewInterestGroup(form: InterestGroupNewForm): Thunk<*> {
+
+  return (dispatch) =>
+    dispatch(
+      callAPI({
+        types: InterestGroup.REQUEST_NEW,
+        endpoint: `/request-interest-group/`,
+        method: 'POST',
+        body: form,
+        meta: {
+          errorMessage: 'Gruppe ble ikke opprettet',
+          successMessage: 'Forespørsel sendt'
+        },
+      })
+    ).then((_) => dispatch(push(`/interestgroups/`)));
+}

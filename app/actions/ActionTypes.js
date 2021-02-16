@@ -153,6 +153,7 @@ export const InterestGroup = {
   CREATE: generateStatuses('InterestGroup.CREATE'),
   REMOVE: generateStatuses('InterestGroup.REMOVE'),
   UPDATE: generateStatuses('InterestGroup.UPDATE'),
+  REQUEST_NEW: generateStatuses('InterestGroup.REQUEST_NEW'),
 };
 
 export const Membership = {
