@@ -1,0 +1,47 @@
+.infoDropdownEl {
+  width: 28rem;
+}
+
+.gridSection {
+  display: inline-grid;
+  grid-template-columns: 12rem 12rem;
+  grid-template-rows: auto auto;
+  gap: 1em;
+}
+
+.gridSection div {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.gridSection span {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1em;
+  color: var(--color-dark-gray-2);
+}
+
+.gridSection p {
+  white-space: initial;
+  word-break: break-word;
+  line-height: 1.4em;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9em;
+  color: rgba(57, 75, 89, 0.8);
+  transition: color 200ms ease-in-out;
+}
+
+.gridSection a:hover p {
+  color: var(--color-dark-gray-2);
+}
+
+.gridSection i {
+  color: var(--lego-light-red-color);
+  opacity: 0;
+  transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+.gridSection a:hover i {
+  transform: translateX(0.2em);
+  opacity: 1;
+}
