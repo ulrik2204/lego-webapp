@@ -34,10 +34,18 @@ export type Grade = {
 
 export type PhotoConsentDomain = 'WEBSITE' | 'SOCIAL_MEDIA';
 
+export type PhotoConsentSemester = 'SPRING' | 'AUTUMN';
+
 export type Semester = 'spring' | 'autumn';
 
+export type EventSemester = {
+  year: number,
+  semester: PhotoConsentSemester,
+};
+
 export type PhotoConsent = {
-  semester: string,
+  year: number,
+  semester: PhotoConsentSemester,
   domain: PhotoConsentDomain,
   isConsenting: ?boolean,
   updatedAt: ?Dateish,

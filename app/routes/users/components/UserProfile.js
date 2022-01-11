@@ -427,7 +427,7 @@ export default class UserProfile extends Component<Props, EventsProps> {
                 </Card>
               </div>
             )}
-            {showSettings && photoConsents && photoConsents.length > 0 && (
+            {showSettings && photoConsents?.length > 0 && (
               <div>
                 <h3>Bildesamtykke</h3>
                 <Card>

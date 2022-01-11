@@ -26,6 +26,7 @@ import {
   registrationIsClosed,
   getEventSemesterFromStartTime,
   hasRegisteredConsent,
+  toReadableSemester,
 } from '../utils';
 
 import { selectUserByUsername } from 'app/reducers/users';
@@ -350,31 +351,33 @@ const JoinEventForm = (props: Props) => {
                   </Link>
                 </div>
               )}
-              {!disabledForUser &&
-                event.useConsent &&
-                !hasRegisteredConsent(
-                  currentUser.photoConsents,
-                  getEventSemesterFromStartTime(event.startTime)
-                ) && (
-                  <div className={styles.eventWarning}>
-                    <p>NB!</p>
-                    <p>
-                      Du må ta stilling til bildesamtykke for semesteret{' '}
-                      {getEventSemesterFromStartTime(event.startTime)} for å
-                      melde deg på dette arrangement.
-                    </p>
-                    <Link to={`/users/me/`}>Gå til min profil</Link>
-                  </div>
-                )}
-                {formOpen &&
-                (event.useConsent
-                  ? hasRegisteredConsent(
-                      currentUser.photoConsents,
+            {!disabledForUser &&
+              event.useConsent &&
+              !hasRegisteredConsent(
+                currentUser.photoConsents,
+                getEventSemesterFromStartTime(event.startTime)
+              ) && (
+                <div className={styles.eventWarning}>
+                  <p>NB!</p>
+                  <p>
+                    Du må ta stilling til bildesamtykke for semesteret{' '}
+                    {toReadableSemester(
                       getEventSemesterFromStartTime(event.startTime)
-                    )
-                  : true) &&
-                (event.useContactTracing ? currentUser.phoneNumber : true) && (
-                  <Flex column>
+                    )}{' '}
+                    for å melde deg på dette arrangement.
+                  </p>
+                  <Link to={`/users/me/`}>Gå til min profil</Link>
+                </div>
+              )}
+            {formOpen &&
+              (event.useConsent
+                ? hasRegisteredConsent(
+                    currentUser.photoConsents,
+                    getEventSemesterFromStartTime(event.startTime)
+                  )
+                : true) &&
+              (event.useContactTracing ? currentUser.phoneNumber : true) && (
+                <Flex column>
                   <Form
                     onSubmit={submitWithType(
                       handleSubmit,
@@ -382,7 +385,7 @@ const JoinEventForm = (props: Props) => {
                       registrationType
                     )}
                   >
-                  {showCaptcha && (
+                    {showCaptcha && (
                       <Field
                         name="captchaResponse"
                         fieldStyle={{ width: 304 }}

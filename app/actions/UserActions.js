@@ -216,21 +216,23 @@ export function removePicture(username: string): Thunk<*> {
       })
     );
 }
+
 export function updatePhotoConsent(
   photoConsent: PhotoConsent,
   username: string,
   userId: Number
 ): Thunk<*> {
-  const { semester, domain, isConsenting } = photoConsent;
+  const { year, semester, domain, isConsenting } = photoConsent;
   return callAPI({
     types: User.UPDATE,
     endpoint: `/users/${username}/update_photo_consent/`,
     method: 'POST',
     body: {
       user: userId,
-      semester: semester,
-      domain: domain,
-      isConsenting: isConsenting,
+      year,
+      semester,
+      domain,
+      isConsenting,
     },
     schema: userSchema,
     meta: {

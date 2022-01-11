@@ -1,8 +1,15 @@
 // @flow
 import { pick, sumBy } from 'lodash';
 import moment from 'moment-timezone';
-import type { TransformEvent, Event, EventType, AddPenalty } from 'app/models';
-import type { PhotoConsent, PhotoConsentDomain } from 'app/models';
+import type {
+  TransformEvent,
+  Event,
+  EventType,
+  AddPenalty,
+  PhotoConsent,
+  PhotoConsentDomain,
+  EventSemester,
+} from 'app/models';
 
 export const PHOTO_CONSENT_DOMAINS = {
   WEBSITE: 'WEBSITE',
@@ -228,28 +235,42 @@ export const penaltyHours = (penalties: Array<AddPenalty>) => {
   }
 };
 
-export const getEventSemesterFromStartTime = (startTime: moment): string => {
-  const eventYear = startTime.format('YY');
-  const eventMonth = Number(startTime.format('MM'));
-
-  return (eventMonth > 7 ? 'H' : 'V') + eventYear;
+export const getEventSemesterFromStartTime = (
+  startTime: moment
+): EventSemester => {
+  return {
+    year: Number(startTime.format('YYYY')),
+    semester: Number(startTime.format('MM')) > 7 ? 'AUTUMN' : 'SPRING',
+  };
 };
 
 export const getConsent = (
   domain: PhotoConsentDomain,
+  year: number,
   semester: string,
   photoConsents: Array<PhotoConsent>
 ): ?PhotoConsent =>
-  photoConsents.find((pc) => pc.domain === domain && pc.semester === semester);
+  photoConsents.find(
+    (pc) => pc.domain === domain && pc.year === year && pc.semester === semester
+  );
 
 export const hasRegisteredConsent = (
   photoConsents: Array<PhotoConsent>,
-  eventSemester: string
+  eventSemester: EventSemester
 ): boolean => {
   const registeredConsents = photoConsents.filter(
     (pc) =>
-      pc.semester === eventSemester && typeof pc.isConsenting === 'boolean'
+      pc.year === eventSemester.year &&
+      pc.semester === eventSemester.semester &&
+      typeof pc.isConsenting === 'boolean'
   );
 
   return registeredConsents.length === 2;
+};
+
+export const toReadableSemester = (
+  semesterObj: EventSemester | PhotoConsent
+): string => {
+  const semester = semesterObj.semester === 'SPRING' ? 'våren' : 'høsten';
+  return `${semester} ${semesterObj.year}`;
 };

@@ -104,14 +104,24 @@ const getConsentIcons = (LEGACY_photoConsent, photoConsents, eventSemester) => {
 
     const iconClass = (photoConsent) =>
       cx(
-        photoConsent?.isConsenting ? styles.greenIcon : styles.crossIcon,
+        photoConsent?.isConsenting ? styles.greenIcon : styles.redIcon,
         photoConsent?.domain === WEBSITE
-          ? 'fa fa-circle'
-          : 'fa fa-facebook-square'
+          ? 'fa fa-desktop'
+          : 'fa fa-share-square'
       );
 
-    const webConsent = getConsent(WEBSITE, eventSemester, photoConsents);
-    const soMeConsent = getConsent(SOCIAL_MEDIA, eventSemester, photoConsents);
+    const webConsent = getConsent(
+      WEBSITE,
+      eventSemester.year,
+      eventSemester.semester,
+      photoConsents
+    );
+    const soMeConsent = getConsent(
+      SOCIAL_MEDIA,
+      eventSemester.year,
+      eventSemester.semester,
+      photoConsents
+    );
     return (
       <>
         <TooltipIcon
@@ -132,7 +142,7 @@ const getConsentIcons = (LEGACY_photoConsent, photoConsents, eventSemester) => {
       iconClass={
         LEGACY_photoConsent === 'PHOTO_CONSENT'
           ? cx('fa fa-check', styles.greenIcon)
-          : cx('fa fa-times', styles.crossIcon)
+          : cx('fa fa-times', styles.redIcon)
       }
     />
   );
