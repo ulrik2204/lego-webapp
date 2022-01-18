@@ -7,6 +7,7 @@ import Flex from 'app/components/Layout/Flex';
 import { ConfirmModalWithParent } from 'app/components/Modal/ConfirmModal';
 import type { PhotoConsent, PhotoConsentDomain } from 'app/models';
 import moment from 'moment-timezone';
+import cx from 'classnames';
 import {
   PHOTO_CONSENT_DOMAINS,
   toReadableSemester,
@@ -48,7 +49,7 @@ const ConsentManager = ({
   const presentableDomain =
     consent.domain === PHOTO_CONSENT_DOMAINS.WEBSITE
       ? 'Abakus.no'
-      : 'sosiale medier';
+      : 'Sosiale medier';
   return (
     <>
       <h4 className={styles.categoryTitle}>{presentableDomain}</h4>
@@ -67,25 +68,27 @@ const ConsentManager = ({
           onConfirm={() => updateConsent({ ...consent, isConsenting: false })}
         >
           <Button
-            className={styles.notConsentBtn}
-            disabled={consent?.isConsenting === false || !isMe}
+            disabled={!isMe}
+            className={
+              consent.isConsenting === false
+                ? cx(styles.notConsentBtn, styles.selectedConsentBtn)
+                : styles.notConsentBtn
+            }
           >
-            {consent.isConsenting === null
-              ? 'Nei'
-              : !consent.isConsenting
-              ? 'Du har trukket samtykket'
-              : 'Trekk samtykket'}
+            Nei
           </Button>
         </ConfirmModalWithParent>
-        {consent.isConsenting === null && (
-          <Button
-            disabled={!isMe}
-            onClick={() => updateConsent({ ...consent, isConsenting: true })}
-            className={styles.consentBtn}
-          >
-            Ja
-          </Button>
-        )}
+        <Button
+          disabled={!isMe}
+          onClick={() => updateConsent({ ...consent, isConsenting: true })}
+          className={
+            consent.isConsenting
+              ? cx(styles.consentBtn, styles.selectedConsentBtn)
+              : styles.consentBtn
+          }
+        >
+          Ja
+        </Button>
       </div>
     </>
   );
