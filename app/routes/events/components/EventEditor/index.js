@@ -86,7 +86,7 @@ function EventEditor({
 
   useEffect(() => {
     setUseMazemap(event.mazemapPoi && event.mazemapPoi?.value > 0);
-  }, [initialized]);
+  }, [event.mazemapPoi, initialized]);
 
   if (isEditPage && !actionGrant.includes('edit')) {
     return null;

@@ -61,7 +61,7 @@ function MeetingEditor({
 
   useEffect(() => {
     setUseMazemap(isEditPage && meeting.mazemapPoi?.value > 0);
-  }, [initialized, isEditPage]);
+  }, [initialized, isEditPage, meeting.mazemapPoi]);
 
   if (isEditPage && !meeting) {
     return <LoadingIndicator loading />;
